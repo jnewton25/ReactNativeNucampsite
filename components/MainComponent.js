@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Home from "./HomeComponent";
 import Directory from "./DirectoryComponent";
 import CampsiteInfo from "./CampsiteInfoComponent";
+import AboutUs from "./AboutComponent";
+import ContactUs from "./ContactComponent";
 import Constants from "expo-constants";
 import { View, Platform } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
@@ -12,6 +14,8 @@ const DirectoryNavigator = createStackNavigator(
 	{
 		Directory: { screen: Directory },
 		CampsiteInfo: { screen: CampsiteInfo },
+		AboutUs: { screen: AboutUs },
+		ContactUs: { screen: ContactUs },
 	},
 	{
 		initialRouteName: "Directory",
@@ -48,6 +52,8 @@ const MainNavigator = createDrawerNavigator(
 	{
 		Home: { screen: HomeNavigator },
 		Directory: { screen: DirectoryNavigator },
+		AboutUs: { screen: AboutUs },
+		ContactUs: { screen: ContactUs },
 	},
 	{
 		drawerBackgroundColor: "#CEC8FF",
