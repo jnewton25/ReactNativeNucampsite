@@ -79,4 +79,4 @@ class AboutUs extends Component {
 	}
 }
 
-export default connect(mapStateToProps)(About);
+export default connect(mapStateToProps)(AboutUs);
