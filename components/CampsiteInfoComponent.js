@@ -29,7 +29,6 @@ const mapDispatchToProps = {
 
 function RenderCampsite(props) {
 	const { campsite } = props;
-
 	if (campsite) {
 		return (
 			<Card
@@ -73,12 +72,12 @@ function RenderComments({ comments }) {
 				<Rating
 					startingValue={item.rating}
 					imageSize={10}
-					style={{ alignitems: "flex-start", paddingVertical: "5%" }}
+					style={{ alignItems: "flex-start", paddingVertical: "5%" }}
 					readonly
 				/>
 				<Text
 					style={{ fontSize: 12 }}
-				>{`--${item.author}, ${item.date}`}</Text>
+				>{`-- ${item.author}, ${item.date}`}</Text>
 			</View>
 		);
 	};
@@ -97,7 +96,6 @@ function RenderComments({ comments }) {
 class CampsiteInfo extends Component {
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			showModal: false,
 			rating: 5,
@@ -180,7 +178,7 @@ class CampsiteInfo extends Component {
 							value={this.state.author}
 						/>
 						<Input
-							placeholder="Leave your comment here"
+							placeholder="Comment"
 							leftIcon={{
 								type: "font-awesome",
 								name: "comment-o",
