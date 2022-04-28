@@ -11,6 +11,7 @@ import {
 	Alert,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
+import * as Notifications from "expo-notifications";
 
 class Reservation extends Component {
 	constructor(props) {
@@ -28,15 +29,6 @@ class Reservation extends Component {
 		title: "Reserve Campsite",
 	};
 
-	resetForm() {
-		this.setState({
-			campers: 1,
-			hikeIn: false,
-			date: new Date(),
-			showCalendar: false,
-		});
-	}
-
 	createReservationAlert = () => {
 		Alert.alert(
 			"Begin Search?",
@@ -50,16 +42,59 @@ class Reservation extends Component {
 				{
 					text: "Cancel",
 					style: "cancel",
-					onPress: () => console.log("Cancel Pressed"),
+					onPress: () => {
+						console.log("Reservation Search Canceled");
+						this.resetForm();
+					},
 				},
 				{
 					text: "OK",
-					onPress: () => console.log("OK Pressed"),
+					onPress: () => {
+						this.presentLocalNotification(
+							this.state.date.toLocaleDateString("en-US")
+						);
+						this.resetForm();
+					},
 				},
 			],
 			{ cancelable: false }
 		);
 	};
+
+	resetForm() {
+		this.setState({
+			campers: 1,
+			hikeIn: false,
+			date: new Date(),
+			showCalendar: false,
+		});
+	}
+
+	async presentLocalNotification(date) {
+		function sendNotification() {
+			Notifications.setNotificationHandler({
+				handleNotification: async () => ({
+					shouldShowAlert: true,
+				}),
+			});
+
+			Notifications.scheduleNotificationAsync({
+				content: {
+					title: "Your Campsite Reservation Search",
+					body: `Search for ${date} requested`,
+				},
+				trigger: null,
+			});
+		}
+
+		let permissions = await Notifications.getPermissionsAsync();
+		if (!permissions.granted) {
+			permissions = await Notifications.requestPermissionsAsync();
+		}
+		if (permissions.granted) {
+			sendNotification();
+		}
+	}
 
 	render() {
 		return (
